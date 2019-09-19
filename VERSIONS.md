@@ -8,13 +8,29 @@
 ### Deprecations
 
 
+## Version 1.8.0
+### Features
+- `@evan.network/ui` (v1.7.1)
+  - add new dapp-wrapper design for small left panel
+  - add new tooltip design
+  - add `.evan-swipe-panel` class
+  - add new button designs
+  - add new `.nav-list` design
+  - add `toasted` design
+  - add `.evan-card` design
+  - add `xxl` and `xxxl` breakpoint for bootstrap
+  - add `evan-form` style
+- `@evan.network/api-blockchain-core-browserified` (v2.12.0)
+- `@evan.network/smart-contracts-core-browserified` (v2.6.1)
+
+
 ## Version 1.7.1
 ### Features
-- `@evan.network/api-blockchain-core` Version 2.11.0
-- `@evan.network/smart-contracts-core` Version 2.6.0
+- `@evan.network/api-blockchain-core` (v2.11.0)
+- `@evan.network/smart-contracts-core` (v2.6.0)
 
 ### Fixes
-- `@evan.network/ui` Version 1.7.1
+- `@evan.network/ui` (v1.7.1)
   - add correct `line-height` to `evan-dropdown` children
   - add `scrypt` adjustments for `browserify` build
 - increase build time for dapp only apps that does not needs a d.ts file

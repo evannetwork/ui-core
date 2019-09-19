@@ -25,28 +25,55 @@
   https://evan.network/license/
 */
 
-@mixin evanVariables($variables) {
-  @each $param, $value in $variables {
-    --evan-#{$param}: #{$value};
-  }
-}
+@import './utils';
 
-// for now, bootstrap does not support css browser variables
-@function cssVar($name) {
-  @return var(--evan-#{$name});
-}
+.evan {
+  .evan-swipe-panel {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
 
-@mixin keyframes($animationName) {
-  @-webkit-keyframes $animationName {
-    @content;
-  }
-  @-moz-keyframes $animationName {
-    @content;
-  }
-  @-o-keyframes $animationName {
-    @content;
-  }
-  @keyframes $animationName {
-    @content;
+    width: cssVar('swipe-panel-size');
+    height: 100%;
+    padding: 2em;
+
+    background-color: cssVar('bg-inverted');
+    box-shadow: 4px 0 4px rgba(0, 0, 0, 0.15);
+
+    &.alignment-right {
+      left: calc(100% + var(--evan-swipe-panel-size));
+
+      transition: 0.3s ease-out left;
+
+      &.show {
+        left: calc(100% - var(--evan-swipe-panel-size));
+      }
+    }
+
+    &.alignment-left {
+      right: calc(100% + var(--evan-swipe-panel-size));
+
+      transition: 0.3s ease-out right;
+
+      &.show {
+        right: calc(100% - var(--evan-swipe-panel-size));
+      }
+    }
+
+    &, * {
+      color: cssVar('text-color-inverted');
+    }
+
+    @media (max-width: 768px) {
+      & {
+        right: 100%;
+
+        width: 100%;
+
+        &.show {
+          right: 0;
+        }
+      }
+    }
   }
 }
