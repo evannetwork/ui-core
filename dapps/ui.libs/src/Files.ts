@@ -15,14 +15,6 @@
   write to the Free Software Foundation, Inc., 51 Franklin Street,
   Fifth Floor, Boston, MA, 02110-1301 USA, or download the license from
   the following URL: https://evan.network/license/
-
-  You can be released from the requirements of the GNU Affero General Public
-  License by purchasing a commercial license.
-  Buying such a license is mandatory as soon as you use this software or parts
-  of it on other blockchains than evan.network.
-
-  For more information, please contact evan GmbH at this address:
-  https://evan.network/license/
 */
 
 import * as bcc from '@evan.network/api-blockchain-core';
@@ -117,4 +109,46 @@ export function getReadableFileSize(size: number) {
   } else {
     return `${ size.toFixed(2) }B`;
   }
+}
+
+/**
+ * Takes an dataUri and resizes the img to an maximum px ratio of 1000px:1000px.
+ *
+ * @param      {string}  dataUri     Data Uri
+ * @param      {any}     dimensions  dimensions to transform the picture to (default max_width:
+ *                                   1000, max_height: 1000)
+ * @return     {blob}    Returns the resized img as a blob.
+ */
+export async function resizeImage(dataUri: string, dimensions = { max_width: 1000, max_height: 1000 }) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = dataUri;
+
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const canvasCopy = document.createElement('canvas');
+      const copyContext = canvasCopy.getContext('2d');
+      let ratio = 1;
+
+      if (img.width > dimensions.max_width) {
+        ratio = dimensions.max_width / img.width;
+      } else if (img.height > dimensions.max_height) {
+        ratio = dimensions.max_height / img.height;
+      }
+
+      canvasCopy.width = img.width;
+      canvasCopy.height = img.height;
+      copyContext.drawImage(img, 0, 0);
+
+      canvas.width = img.width * ratio;
+      canvas.height = img.height * ratio;
+      ctx.drawImage(
+        canvasCopy,
+        0, 0, canvasCopy.width, canvasCopy.height,
+        0, 0, canvas.width, canvas.height
+      );
+      canvas.toBlob((blob) => resolve(blob));
+    }
+  })
 }

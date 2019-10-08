@@ -15,14 +15,6 @@
   write to the Free Software Foundation, Inc., 51 Franklin Street,
   Fifth Floor, Boston, MA, 02110-1301 USA, or download the license from
   the following URL: https://evan.network/license/
-
-  You can be released from the requirements of the GNU Affero General Public
-  License by purchasing a commercial license.
-  Buying such a license is mandatory as soon as you use this software or parts
-  of it on other blockchains than evan.network.
-
-  For more information, please contact evan GmbH at this address:
-  https://evan.network/license/
 */
 
 @import './utils';
@@ -41,38 +33,38 @@
     // without using my-auto
     .nav-entries {
       flex: 1;
-    }
 
-    a {
-      font-size: 15px;
-      font-weight: 600;
+      a {
+        font-size: 15px;
+        font-weight: 600;
 
-      display: flex;
-      align-items: center;
+        display: flex;
+        align-items: center;
 
-      height: 70px;
-      padding-left: 22px;
+        height: 70px;
+        padding-left: 22px;
 
-      cursor: pointer;
-      transition: background-color 0.5s ease-out, color 0.5s ease-out;
-      text-decoration: none !important;
+        cursor: pointer;
+        transition: background-color 0.5s ease-out, color 0.5s ease-out;
+        text-decoration: none !important;
 
-      &.active {
-        background-color: cssVar('bg-level-2') !important;
+        &.active {
+          background-color: cssVar('bg-level-2') !important;
+
+          &, * {
+            color: cssVar('dark') !important;
+          }
+        };
+
+        &:hover {
+          &, * {
+            color: cssVar('primary') !important;
+          }
+        }
 
         &, * {
-          color: cssVar('dark') !important;
+          color: cssVar('gray-600') !important;
         }
-      };
-
-      &:hover {
-        &, * {
-          color: cssVar('primary') !important;
-        }
-      }
-
-      &, * {
-        color: cssVar('gray-600') !important;
       }
     }
   }
