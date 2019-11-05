@@ -65,25 +65,10 @@ gulp.task('browserify', async function(callback) {
   // build typescript
   await runExec(`npm run tsc ${ dappRelativePath }`, rootFolder);
 
-  // replace wrong scrypt import by adding correct require("scrypt") import
-  const scryptFolderPaths = [
-    require.resolve('scrypt'),
-    `${ rootFolder }/node_modules/@evan.network/api-blockchain-core/node_modules/scrypt`
-  ];
-  Promise.all(scryptFolderPaths.map(async (scryptFolderPath) => {
-    try {
-      await new Promise((resolve, reject) => gulp
-        .src(`${ scryptFolderPath }/index.js`)
-        .pipe(gulpReplace('require("./build/Release/scrypt")', 'require("scrypt")'))
-        .pipe(gulp.dest(scryptFolderPath))
-        .on('end', () => resolve())
-      );
-    } catch (ex) { }
-  }));
-
   await new Promise((resolve, reject) => {
     const buildJob = browserify(indexFile, {
       standalone: dbcp.public.name,
+      ignoreMissing: true,
       debug: true,
     });
 
@@ -140,7 +125,6 @@ gulp.task('browserify', async function(callback) {
         const dbcpPath = path.resolve(`${ dappRelativePath }/dbcp.json`);
 
         gulp.src([ dbcpPath ]).pipe(gulp.dest(distFolder));
-        gulp.src([ `../dist/config.js` ]).pipe(gulp.dest(distFolder));
 
         const dbcp = {
           dbcpPath: `${dbcpPath}`
@@ -183,4 +167,4 @@ gulp.task('browserify', async function(callback) {
   });
 });
 
-gulp.task('default', ['browserify']);
+gulp.task('default', gulp.series([ 'browserify' ]));
