@@ -9,11 +9,11 @@
     "DApp",
     "CSS"
   ],
-  "main": "dist/lodash.js",
-  "name": "@evan.network/lodash",
+  "main": "dist/qrcodejs.js",
+  "name": "@evan.network/qrcodejs",
   "scripts": {
     "build": "gulp --gulpfile ../../gulp/webpack.js --dapp $(pwd)"
   },
-  "typings": "dist/lodash.d.ts",
-  "version": "4.17.11"
+  "typings": "dist/qrcodejs.d.ts",
+  "version": "1.0.0"
 }
